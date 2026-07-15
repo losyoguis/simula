@@ -183,7 +183,12 @@ export default function Home() {
       const next = new Set(current);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem("simula-favorites", JSON.stringify([...next]));
+      try {
+        localStorage.setItem("simula-favorites", JSON.stringify([...next]));
+      } catch {
+        // Some browsers restrict storage for file:// pages; favorites still
+        // remain available for the current session through React state.
+      }
       return next;
     });
   };
