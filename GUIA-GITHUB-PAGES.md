@@ -8,6 +8,10 @@ La página principal es `index.html` en la raíz. Ese archivo se regenera con la
 aplicación compilada cada vez que ejecutas `npm run build:github-pages`. La misma
 compilación queda en `docs/`, que es la carpeta publicada por GitHub Actions.
 
+El `index.html` principal contiene internamente todo el CSS y JavaScript de la
+interfaz. Por eso también puede abrirse directamente desde el explorador de
+archivos del computador, sin instalar Node.js ni iniciar un servidor.
+
 ## Opción recomendada: publicación automática
 
 1. Crea un repositorio en GitHub y sube todo el contenido de esta carpeta a la
@@ -34,6 +38,18 @@ de GitHub Actions. Después de modificar el catálogo, ejecuta
 `index.html` como `docs/`.
 
 ## Probar o generar la web en tu computador
+
+### Abrir la versión descargada sin instalar nada
+
+1. Descomprime el ZIP completo; no muevas `index.html` fuera de su carpeta.
+2. Haz doble clic en `index.html` o ábrelo con Chrome, Edge o Firefox.
+3. La enciclopedia, búsqueda, categorías y favoritos funcionarán localmente.
+
+La plataforma se puede recorrer sin conexión, pero para abrir los simuladores
+externos es necesario tener internet. Las imágenes locales se encuentran en
+`public/images/` y deben conservarse junto al resto del proyecto.
+
+### Desarrollo y recompilación
 
 Requiere Node.js 22 o superior.
 
