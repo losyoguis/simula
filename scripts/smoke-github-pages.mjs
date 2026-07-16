@@ -45,10 +45,23 @@ try {
   ].map((match) => match[1]);
   assert.ok(assetPaths.length >= 2, "No se encontraron los recursos CSS y JavaScript compilados.");
 
+  let javascript = "";
   for (const assetPath of assetPaths) {
     const assetResponse = await fetch(`${origin}/${assetPath}`);
     assert.ok(assetResponse.ok, `No se pudo cargar ${assetPath}.`);
+    if (assetPath.endsWith(".js")) javascript += await assetResponse.text();
   }
+
+  assert.match(html, /SIMULA — La enciclopedia de la simulación/);
+  for (const expectedText of [
+    "La enciclopedia de la simulación",
+    "Una enciclopedia para aprender haciendo.",
+    "Industria y manufactura",
+    "Deportes y educación física",
+  ]) {
+    assert.ok(javascript.includes(expectedText), `La compilación no contiene: ${expectedText}`);
+  }
+  assert.ok(!javascript.includes("universal-search"), "El buscador retirado todavía aparece en la compilación.");
 
   console.log(`Prueba HTTP correcta: portada y ${assetPaths.length} recursos estáticos disponibles.`);
 } finally {
