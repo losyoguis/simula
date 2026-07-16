@@ -85,6 +85,8 @@ const categoryClues: Record<Category, string[]> = {
   Comunicación: ["comunicacion", "periodismo", "noticias", "oratoria", "escritura", "medios", "desinformacion", "podcast"],
   Oficios: ["oficio", "electricista", "mecanica", "cnc", "construccion", "cocina", "seguridad laboral", "mantenimiento"],
   Arquitectura: ["arquitectura", "plano", "vivienda", "urbanismo", "estructura", "bioclimatica", "interior", "asoleamiento"],
+  "Industria y manufactura": ["industria", "manufactura", "fabrica", "produccion", "cnc", "plc", "lean", "calidad", "mantenimiento", "automatizacion"],
+  "Deportes y educación física": ["deporte", "educacion fisica", "entrenamiento", "tactica", "arbitraje", "futbol", "baloncesto", "anatomia", "vo2max", "condicion fisica"],
   "Juegos recreativos": ["jugar", "juegos", "diversion", "ajedrez", "cartas", "puzle", "rompecabezas", "aventura"],
 };
 
@@ -220,9 +222,9 @@ export default function Home() {
   return (
     <main>
       <header className="site-header" aria-label="Navegación principal">
-        <a className="brand" href="#inicio" aria-label="Simula, inicio">
+        <a className="brand" href="#inicio" aria-label="SIMULA, inicio">
           <span className="brand-mark" aria-hidden="true"><i /><i /><b /></span>
-          <span>Simula</span>
+          <span>SIMULA</span>
         </a>
         <nav className="main-nav" aria-label="Secciones">
           <a className="active" href="#catalogo">Explorar</a>
@@ -242,9 +244,10 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <div className="hero-copy">
-          <p className="eyebrow">La biblioteca para aprender haciendo</p>
-          <h1>Explora.<br />Practica.<br />Descubre.</h1>
+          <p className="eyebrow">La enciclopedia de la simulación</p>
+          <h1>SIMULA</h1>
           <p className="hero-description">
+            <strong>Una enciclopedia para aprender haciendo.</strong><br />
             Simuladores, simulacros, herramientas y juegos gratuitos organizados en un solo lugar.
           </p>
           <div className="hero-actions">
@@ -261,7 +264,7 @@ export default function Home() {
               value={query}
               onChange={(event) => { setQuery(event.target.value); setVisibleLimit(PAGE_SIZE); }}
               onFocus={() => setFavoritesOnly(false)}
-              placeholder="Busca IA, psicología, derecho, arquitectura…"
+              placeholder="Busca industria, deportes, IA, salud, arquitectura…"
             />
             <kbd>⌘ K</kbd>
           </label>
@@ -289,7 +292,7 @@ export default function Home() {
             El asistente compara tu solicitud con los {simulators.length} recursos del catálogo.
           </p>
           <div className="assistant-examples" aria-label="Ejemplos de solicitudes">
-            {["Practicar phishing sin registro", "Diseñar una vivienda bioclimática", "Memoria y atención para estudiantes", "Aprender riego y tipos de suelo"].map((example) => (
+            {["Programar un PLC sin registro", "Calcular mi VO2max", "Diseñar una vivienda bioclimática", "Practicar phishing de forma segura"].map((example) => (
               <button type="button" onClick={() => askAssistant(example)} key={example}>{example}</button>
             ))}
           </div>
@@ -366,7 +369,7 @@ export default function Home() {
       <section className="category-section" id="categorias" aria-labelledby="categories-title">
         <div className="section-heading">
           <div><p className="eyebrow">Todo está conectado</p><h2 id="categories-title">Explora por categoría</h2></div>
-          <p className="heading-copy">Ciencia, tecnología, profesiones, ciudadanía, creatividad y formación práctica en un solo catálogo.</p>
+          <p className="heading-copy">Ciencia, industria, deportes, tecnología, profesiones, ciudadanía y creatividad en un solo catálogo.</p>
         </div>
         <div className="category-grid">
           {categories.map((category) => {
@@ -482,7 +485,7 @@ export default function Home() {
       </section>
 
       <section className="principles-section" aria-labelledby="principles-title">
-        <div><p className="eyebrow">Criterio Simula</p><h2 id="principles-title">Un catálogo claro y transparente</h2></div>
+        <div><p className="eyebrow">Criterio SIMULA</p><h2 id="principles-title">Un catálogo claro y transparente</h2></div>
         <div className="principles-grid">
           <article><span>01</span><h3>Acceso identificado</h3><p>Cada tarjeta indica si funciona sin cuenta, tiene registro opcional o acceso mixto.</p></article>
           <article><span>02</span><h3>Enlaces externos</h3><p>Los recursos se abren en una pestaña nueva para respetar la seguridad de cada plataforma.</p></article>
@@ -491,8 +494,8 @@ export default function Home() {
       </section>
 
       <footer>
-        <a className="brand footer-brand" href="#inicio"><span className="brand-mark" aria-hidden="true"><i /><i /><b /></span><span>Simula</span></a>
-        <p>{simulators.length} recursos para aprender, practicar y jugar.</p>
+        <a className="brand footer-brand" href="#inicio"><span className="brand-mark" aria-hidden="true"><i /><i /><b /></span><span>SIMULA</span></a>
+        <p>La enciclopedia de la simulación · {simulators.length} recursos para aprender haciendo.</p>
         <a href="#inicio">Volver arriba ↑</a>
       </footer>
     </main>

@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Simula — Enciclopedia de simuladores",
+  title: "SIMULA — La enciclopedia de la simulación",
   description:
-    "Explora simuladores y simulacros gratuitos de ciencia, tecnología, finanzas, emergencias y más.",
+    "Una enciclopedia para aprender haciendo: simuladores, simulacros, herramientas y juegos gratuitos organizados por categorías.",
   other: {
     "codex-preview": "development",
   },
