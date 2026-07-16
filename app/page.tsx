@@ -8,6 +8,7 @@ import {
   simulators,
   type Access,
   type Category,
+  type Simulator,
 } from "./catalog";
 
 declare global {
@@ -50,6 +51,57 @@ const normalize = (value: string) =>
 
 const PAGE_SIZE = 48;
 
+const ignoredWords = new Set([
+  "para", "quiero", "necesito", "algo", "sobre", "como", "con", "que", "una", "uno",
+  "unos", "unas", "del", "las", "los", "por", "sin", "sea", "usar", "busco", "juego",
+  "simulador", "simulacro", "gratis", "gratuito", "web", "linea", "cuenta", "registro",
+  "login", "estudiante", "estudiantes", "bachillerato", "secundaria",
+]);
+
+const categoryClues: Record<Category, string[]> = {
+  Espacio: ["espacio", "astronomia", "planeta", "luna", "marte", "estrella", "universo", "orbita"],
+  "Tierra y clima": ["clima", "tierra", "terremoto", "volcan", "oceano", "ambiente", "bosque", "meteorologia"],
+  "Física y química": ["fisica", "quimica", "fuerza", "energia", "materia", "atomo", "molecula", "laboratorio"],
+  "Biología y salud": ["biologia", "salud", "anatomia", "cuerpo", "celula", "genetica", "medicina", "virus"],
+  Ingeniería: ["ingenieria", "circuito", "electronica", "arduino", "mecanismo", "electricidad"],
+  "Programación y robótica": ["programacion", "codigo", "robot", "robotica", "javascript", "scratch", "ciberseguridad"],
+  "Matemáticas y lógica": ["matematica", "matematicas", "fraccion", "geometria", "calculo", "algebra", "logica", "estadistica"],
+  "Simulacros y exámenes": ["examen", "prueba", "simulacro", "saber", "icfes", "sat", "ielts", "conduccion"],
+  Idiomas: ["idioma", "ingles", "espanol", "frances", "aleman", "vocabulario", "gramatica", "pronunciacion"],
+  Finanzas: ["finanzas", "dinero", "ahorro", "inversion", "presupuesto", "economia", "banco"],
+  "Geografía e historia": ["geografia", "historia", "mapa", "pais", "bandera", "cultura", "guerra"],
+  "Sociedad y ciudadanía": ["sociedad", "ciudadania", "gobierno", "democracia", "politica", "elecciones", "derechos"],
+  "Arte y música": ["arte", "musica", "dibujo", "pintura", "sonido", "animacion", "creatividad"],
+  "Educativos infantiles": ["nino", "ninos", "infantil", "primaria", "preescolar", "familia", "pequeno"],
+  Transporte: ["transporte", "vuelo", "avion", "conducir", "carro", "barco", "trafico"],
+  Emergencias: ["emergencia", "desastre", "incendio", "tsunami", "epidemia", "asteroide", "riesgo"],
+  "Juegos recreativos": ["jugar", "juegos", "diversion", "ajedrez", "cartas", "puzle", "rompecabezas", "aventura"],
+};
+
+type Recommendation = { simulator: Simulator; score: number; reasons: string[] };
+
+const recommendResources = (request: string): Recommendation[] => {
+  const normalizedRequest = normalize(request);
+  const words = [...new Set(normalizedRequest.split(/[^a-z0-9]+/).filter((word) => word.length > 2 && !ignoredWords.has(word)))];
+  const wantsDirect = /sin (cuenta|registro|login)|no (cuenta|registro)|acceso directo/.test(normalizedRequest);
+
+  return simulators
+    .map((simulator) => {
+      const searchable = normalize(`${simulator.title} ${simulator.category} ${simulator.description} ${simulator.tags.join(" ")}`);
+      const matchedWords = words.filter((word) => searchable.includes(word));
+      const clueMatches = categoryClues[simulator.category].filter((clue) => normalizedRequest.includes(clue));
+      let score = matchedWords.length * 5 + clueMatches.length * 7;
+      if (normalizedRequest.includes(normalize(simulator.title))) score += 18;
+      if (score > 0 && wantsDirect && simulator.access === "directo") score += 5;
+      if (score > 0 && wantsDirect && simulator.access !== "directo") score -= 7;
+      const reasons = [...new Set([...matchedWords, ...clueMatches])].slice(0, 3);
+      return { simulator, score, reasons };
+    })
+    .filter((item) => item.score > 0 && (!wantsDirect || item.simulator.access === "directo"))
+    .sort((a, b) => b.score - a.score || (a.simulator.access === "directo" ? -1 : 1))
+    .slice(0, 6);
+};
+
 export default function Home() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -58,6 +110,8 @@ export default function Home() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
+  const [assistantQuery, setAssistantQuery] = useState("");
+  const [assistantRequest, setAssistantRequest] = useState("");
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -97,6 +151,14 @@ export default function Home() {
 
   const visibleSimulators = filteredSimulators.slice(0, visibleLimit);
   const directCount = simulators.filter((item) => item.access === "directo").length;
+  const recommendations = useMemo(() => recommendResources(assistantRequest), [assistantRequest]);
+
+  const askAssistant = (request = assistantQuery) => {
+    const cleanRequest = request.trim();
+    if (!cleanRequest) return;
+    setAssistantQuery(cleanRequest);
+    setAssistantRequest(cleanRequest);
+  };
 
   const scrollToCatalog = () => {
     document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -205,6 +267,71 @@ export default function Home() {
           <img src={imagePath("hero-globe.png")} alt="" />
           <span className="data-pill pill-one">17 áreas de conocimiento</span>
           <span className="data-pill pill-two">Acceso web seleccionado</span>
+        </div>
+      </section>
+
+      <section className="assistant-section" id="asistente" aria-labelledby="assistant-title">
+        <div className="assistant-intro">
+          <p className="eyebrow">Asistente de recomendaciones</p>
+          <h2 id="assistant-title">Cuéntame qué quieres aprender o practicar</h2>
+          <p>
+            Describe el tema, la edad, el tipo de actividad o si prefieres acceso sin registro.
+            El asistente compara tu solicitud con los {simulators.length} recursos del catálogo.
+          </p>
+          <div className="assistant-examples" aria-label="Ejemplos de solicitudes">
+            {["Física para secundaria sin registro", "Inglés para practicar un examen", "Juegos de matemáticas para niños"].map((example) => (
+              <button type="button" onClick={() => askAssistant(example)} key={example}>{example}</button>
+            ))}
+          </div>
+        </div>
+        <div className="assistant-panel">
+          <form onSubmit={(event) => { event.preventDefault(); askAssistant(); }}>
+            <label htmlFor="assistant-request">¿Qué estás buscando?</label>
+            <div className="assistant-input-row">
+              <textarea
+                id="assistant-request"
+                value={assistantQuery}
+                onChange={(event) => setAssistantQuery(event.target.value)}
+                placeholder="Ejemplo: necesito un simulador de circuitos para estudiantes de bachillerato que funcione sin iniciar sesión"
+                rows={3}
+              />
+              <button className="primary-button" type="submit">Recomendar <span aria-hidden="true">✦</span></button>
+            </div>
+          </form>
+
+          {assistantRequest && (
+            <div className="assistant-response" aria-live="polite">
+              <div className="assistant-response-head">
+                <span aria-hidden="true">✦</span>
+                <p>
+                  {recommendations.length
+                    ? `Encontré ${recommendations.length} opciones especialmente relacionadas con tu solicitud.`
+                    : "No encontré una coincidencia suficientemente clara. Prueba indicando una materia, tema o tipo de juego."}
+                </p>
+              </div>
+              {recommendations.length > 0 && (
+                <div className="recommendation-list">
+                  {recommendations.map(({ simulator, reasons }) => (
+                    <article className="recommendation-card" key={simulator.id}>
+                      <div className="recommendation-icon" aria-hidden="true">{categoryMeta[simulator.category].glyph}</div>
+                      <div>
+                        <span className={`access-label access-${simulator.access}`}>{accessMeta[simulator.access].short}</span>
+                        <h3>{simulator.title}</h3>
+                        <p>{simulator.description}</p>
+                        <small>
+                          Recomendado por: {reasons.length ? reasons.join(", ") : simulator.category.toLowerCase()}.
+                        </small>
+                      </div>
+                      <a href={simulator.href} target="_blank" rel="noreferrer" aria-label={`Abrir ${simulator.title} en una nueva pestaña`}>
+                        Abrir <span aria-hidden="true">↗</span>
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          {!assistantRequest && <p className="assistant-privacy">Funciona en tu navegador. No envía ni almacena lo que escribes.</p>}
         </div>
       </section>
 

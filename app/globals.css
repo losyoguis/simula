@@ -39,7 +39,7 @@ body::before {
   position: fixed;
 }
 
-button, input { font: inherit; }
+button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
 
@@ -123,6 +123,34 @@ a { color: inherit; text-decoration: none; }
 .data-pill { backdrop-filter: blur(10px); background: rgba(9,35,46,.7); border: 1px solid var(--line); border-radius: 999px; color: #bcd1d8; font-size: 11px; padding: 8px 12px; position: absolute; z-index: 3; }
 .pill-one { left: 7%; top: 31%; }
 .pill-two { bottom: 24%; right: 2%; }
+
+.assistant-section { background: linear-gradient(135deg, rgba(15,45,57,.96), rgba(18,25,65,.9)); border: 1px solid rgba(111,231,200,.2); border-radius: 24px; display: grid; gap: 42px; grid-template-columns: .72fr 1.28fr; margin: 38px auto 70px; max-width: 1280px; padding: 48px; position: relative; z-index: 6; }
+.assistant-section::before { background: var(--coral); border-radius: 50%; box-shadow: 0 0 34px rgba(255,107,97,.55); content: ""; height: 8px; left: 25px; position: absolute; top: 25px; width: 8px; }
+.assistant-intro h2 { font-size: clamp(31px, 3.3vw, 47px); letter-spacing: -.045em; line-height: 1.04; margin: 0; }
+.assistant-intro > p:not(.eyebrow) { color: #a9bfca; font-size: 13px; line-height: 1.7; margin: 20px 0; }
+.assistant-examples { display: flex; flex-direction: column; gap: 8px; }
+.assistant-examples button { background: rgba(3,18,27,.3); border: 1px solid var(--line); border-radius: 10px; color: #b8ccd4; cursor: pointer; font-size: 10px; padding: 9px 11px; text-align: left; transition: border-color .2s ease, color .2s ease; }
+.assistant-examples button:hover { border-color: var(--mint); color: var(--mint); }
+.assistant-panel { background: rgba(3,18,27,.54); border: 1px solid var(--line); border-radius: 18px; min-width: 0; padding: 24px; }
+.assistant-panel label { color: var(--mint); display: block; font-size: 11px; font-weight: 750; letter-spacing: .06em; margin-bottom: 10px; text-transform: uppercase; }
+.assistant-input-row { align-items: end; display: grid; gap: 12px; grid-template-columns: 1fr auto; }
+.assistant-input-row textarea { background: rgba(6,30,42,.78); border: 1px solid rgba(111,231,200,.28); border-radius: 12px; color: var(--ivory); line-height: 1.5; min-height: 96px; outline: none; padding: 13px 14px; resize: vertical; width: 100%; }
+.assistant-input-row textarea:focus { border-color: var(--mint); box-shadow: 0 0 0 4px rgba(111,231,200,.08); }
+.assistant-input-row textarea::placeholder { color: #7895a2; }
+.assistant-input-row .primary-button { white-space: nowrap; }
+.assistant-privacy { color: #7895a2; font-size: 9px; margin: 12px 0 0; }
+.assistant-response { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 18px; }
+.assistant-response-head { align-items: center; display: flex; gap: 10px; }
+.assistant-response-head > span { align-items: center; background: rgba(111,231,200,.12); border-radius: 50%; color: var(--mint); display: flex; height: 31px; justify-content: center; width: 31px; }
+.assistant-response-head p { color: #c4d6dc; font-size: 11px; line-height: 1.5; margin: 0; }
+.recommendation-list { display: grid; gap: 9px; margin-top: 15px; }
+.recommendation-card { align-items: center; background: rgba(16,44,55,.72); border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 13px; grid-template-columns: 42px 1fr auto; padding: 12px; }
+.recommendation-icon { align-items: center; background: rgba(111,231,200,.09); border-radius: 10px; color: var(--mint); display: flex; font-size: 23px; height: 42px; justify-content: center; width: 42px; }
+.recommendation-card h3 { font-size: 14px; margin: 6px 0 3px; }
+.recommendation-card p { color: var(--muted); font-size: 9.5px; line-height: 1.45; margin: 0; }
+.recommendation-card small { color: #718f9b; display: block; font-size: 8.5px; margin-top: 5px; text-transform: capitalize; }
+.recommendation-card > a { border: 1px solid rgba(111,231,200,.28); border-radius: 9px; color: var(--mint); font-size: 10px; font-weight: 700; padding: 9px 10px; white-space: nowrap; }
+.recommendation-card > a:hover { background: rgba(111,231,200,.1); }
 
 .featured-section { margin: 0 auto; max-width: 1376px; padding: 30px 48px 90px; position: relative; z-index: 5; }
 .section-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 23px; }
@@ -243,6 +271,7 @@ footer > a:last-child { color: var(--mint); }
   .category-grid { grid-template-columns: repeat(2, 1fr); }
   .simulator-grid { grid-template-columns: repeat(3, 1fr); }
   .emergency-feature { margin-left: 28px; margin-right: 28px; padding: 45px; }
+  .assistant-section { margin-left: 28px; margin-right: 28px; padding: 38px; }
   .principles-section { grid-template-columns: 1fr; }
 }
 
@@ -259,6 +288,11 @@ footer > a:last-child { color: var(--mint); }
   .orbit-one { height: 310px; width: 440px; }
   .orbit-two { height: 380px; width: 330px; }
   .featured-section { padding: 45px 20px 70px; }
+  .assistant-section { grid-template-columns: 1fr; margin: 25px 20px 60px; padding: 34px 20px 20px; }
+  .assistant-input-row { grid-template-columns: 1fr; }
+  .assistant-input-row .primary-button { width: 100%; }
+  .recommendation-card { align-items: start; grid-template-columns: 38px 1fr; }
+  .recommendation-card > a { grid-column: 2; width: fit-content; }
   .featured-grid { grid-template-columns: 1fr; }
   .section-heading > a { display: none; }
   .category-section, .catalog-section, .principles-section { padding: 68px 20px; }
