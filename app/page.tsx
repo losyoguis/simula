@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   accessMeta,
   categories,
@@ -115,8 +115,6 @@ const recommendResources = (request: string): Recommendation[] => {
 };
 
 export default function Home() {
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "Todos">("Todos");
   const [accessFilter, setAccessFilter] = useState<Access | "todos">("todos");
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
@@ -137,29 +135,14 @@ export default function Home() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        searchRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
   const filteredSimulators = useMemo(() => {
-    const term = normalize(query.trim());
     return simulators.filter((simulator) => {
       const matchesCategory = activeCategory === "Todos" || simulator.category === activeCategory;
       const matchesAccess = accessFilter === "todos" || simulator.access === accessFilter;
       const matchesFavorite = !favoritesOnly || favorites.has(simulator.id);
-      const haystack = normalize(
-        `${simulator.title} ${simulator.category} ${simulator.description} ${simulator.tags.join(" ")}`,
-      );
-      return matchesCategory && matchesAccess && matchesFavorite && (!term || haystack.includes(term));
+      return matchesCategory && matchesAccess && matchesFavorite;
     });
-  }, [accessFilter, activeCategory, favorites, favoritesOnly, query]);
+  }, [accessFilter, activeCategory, favorites, favoritesOnly]);
 
   const visibleSimulators = filteredSimulators.slice(0, visibleLimit);
   const directCount = simulators.filter((item) => item.access === "directo").length;
@@ -206,7 +189,6 @@ export default function Home() {
   };
 
   const clearFilters = () => {
-    setQuery("");
     setActiveCategory("Todos");
     setAccessFilter("todos");
     setFavoritesOnly(false);
@@ -256,18 +238,6 @@ export default function Home() {
             </button>
             <span className="hero-proof"><strong>{simulators.length}</strong> recursos investigados</span>
           </div>
-          <label className="universal-search" role="search">
-            <span aria-hidden="true">⌕</span>
-            <span className="sr-only">Buscar recursos</span>
-            <input
-              ref={searchRef}
-              value={query}
-              onChange={(event) => { setQuery(event.target.value); setVisibleLimit(PAGE_SIZE); }}
-              onFocus={() => setFavoritesOnly(false)}
-              placeholder="Busca industria, deportes, IA, salud, arquitectura…"
-            />
-            <kbd>⌘ K</kbd>
-          </label>
           <div className="hero-stats" aria-label="Resumen del catálogo">
             <span><strong>{categories.length}</strong> categorías</span>
             <span><strong>{directCount}</strong> sin cuenta</span>
@@ -418,7 +388,7 @@ export default function Home() {
 
         <div className="results-line" aria-live="polite">
           <span>Mostrando {Math.min(visibleLimit, filteredSimulators.length)} de {filteredSimulators.length} resultados</span>
-          {(query || activeCategory !== "Todos" || accessFilter !== "todos" || favoritesOnly) && (
+          {(activeCategory !== "Todos" || accessFilter !== "todos" || favoritesOnly) && (
             <button type="button" onClick={clearFilters}>Limpiar filtros</button>
           )}
         </div>
@@ -489,7 +459,7 @@ export default function Home() {
         <div className="principles-grid">
           <article><span>01</span><h3>Acceso identificado</h3><p>Cada tarjeta indica si funciona sin cuenta, tiene registro opcional o acceso mixto.</p></article>
           <article><span>02</span><h3>Enlaces externos</h3><p>Los recursos se abren en una pestaña nueva para respetar la seguridad de cada plataforma.</p></article>
-          <article><span>03</span><h3>Búsqueda útil</h3><p>Encuentra recursos por nombre, área, descripción o etiquetas temáticas.</p></article>
+          <article><span>03</span><h3>Filtros útiles</h3><p>Explora los recursos por categoría, tipo de acceso o favoritos.</p></article>
         </div>
       </section>
 
