@@ -7,7 +7,7 @@ No requiere servidor, base de datos, variables de entorno ni claves de API.
 La página principal es `index.html` en la raíz. Ese archivo se regenera con la
 aplicación compilada cada vez que ejecutas `npm run build:github-pages`. La misma
 compilación queda en `docs/`, que es la carpeta publicada por GitHub Actions.
-Esta edición contiene 307 recursos en 17 categorías.
+Esta edición contiene 528 recursos en 27 categorías.
 
 El `index.html` principal contiene internamente todo el CSS y JavaScript de la
 interfaz. Por eso también puede abrirse directamente desde el explorador de
@@ -57,6 +57,7 @@ Requiere Node.js 22 o superior.
 ```bash
 npm ci
 npm run build:github-pages
+npm run smoke:github-pages
 npm run preview:github-pages
 ```
 
@@ -94,7 +95,7 @@ marco de Google Sites.
 
 ## Actualizar el catálogo
 
-Edita el catálogo `resources` en `app/catalog.ts`, guarda los cambios y súbelos
+Edita el catálogo `simulators` en `app/catalog.ts`, guarda los cambios y súbelos
 a la rama `main`. GitHub Actions regenerará y publicará el sitio automáticamente.
 
 ## Documentación oficial

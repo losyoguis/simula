@@ -1,9 +1,13 @@
 # Simula
 
 Biblioteca web de simuladores, simulacros, herramientas y juegos gratuitos.
-Esta edición incluye **307 recursos**, organizados en **17 categorías**, con
+Esta edición incluye **528 recursos**, organizados en **27 categorías**, con
 búsqueda, filtros de acceso, favoritos locales, asistente de recomendaciones y
 diseño adaptable a móviles.
+
+La ampliación incorpora áreas específicas de **IA y datos, ciberseguridad,
+agricultura, sostenibilidad, emprendimiento, psicología, derecho, comunicación,
+oficios y arquitectura**. Todas participan en la búsqueda y en el asistente.
 
 ## Lista para publicar
 
@@ -12,6 +16,7 @@ diseño adaptable a móviles.
 - `.github/workflows/deploy-pages.yml`: publicación automática con GitHub Actions.
 - `app/catalog.ts`: catálogo completo y editable.
 - `GUIA-GITHUB-PAGES.md`: instrucciones de publicación e inserción en Google Sites.
+- `ACTUALIZACION-CATALOGO.md`: resumen de las nuevas categorías y verificaciones.
 
 La web pública no necesita servidor, base de datos, inicio de sesión ni claves.
 Los recursos externos se abren en una pestaña nueva para que también funcionen
@@ -28,6 +33,7 @@ Para usar la versión incluida, abre `index.html`. Para modificar y recompilar:
 ```bash
 npm ci
 npm run build:github-pages
+npm run smoke:github-pages
 npm run preview:github-pages
 ```
 

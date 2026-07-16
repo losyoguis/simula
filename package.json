@@ -9,10 +9,12 @@
     "install:ci": "bash scripts/install-ci.sh",
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vite",
     "build": "bash scripts/build-verified.sh",
-    "build:github-pages": "vite build --config vite.github-pages.config.ts && node scripts/sync-root-index.mjs",
+    "build:github-pages": "npm run validate:catalog && vite build --config vite.github-pages.config.ts && node scripts/sync-root-index.mjs",
     "preview:github-pages": "vite preview --config vite.github-pages.config.ts",
+    "smoke:github-pages": "node scripts/smoke-github-pages.mjs",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run validate:catalog && npm run build && node --test tests/rendered-html.test.mjs",
+    "validate:catalog": "node scripts/validate-catalog.mjs",
     "validate:artifact": "bash scripts/validate-artifact.sh",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern docs",
     "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate"
@@ -42,5 +44,5 @@
     "wrangler": "4.92.0"
   },
   "type": "module",
-  "displayName": "Nuevo sitio"
+  "displayName": "Simula"
 }
