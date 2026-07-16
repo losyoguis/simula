@@ -110,6 +110,9 @@ a { color: inherit; text-decoration: none; }
 .universal-search input { background: transparent; border: 0; color: var(--ivory); flex: 1; font-size: 16px; outline: none; width: 100%; }
 .universal-search input::placeholder { color: #88a4b1; }
 .universal-search kbd { border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: 11px; padding: 5px 7px; }
+.hero-stats { color: var(--muted); display: flex; flex-wrap: wrap; font-size: 10px; gap: 9px; margin-top: 14px; }
+.hero-stats span { background: rgba(111,231,200,.055); border: 1px solid rgba(111,231,200,.13); border-radius: 999px; padding: 7px 10px; }
+.hero-stats strong { color: var(--mint); font-size: 11px; margin-right: 3px; }
 
 .hero-visual { align-self: stretch; min-height: 560px; position: relative; }
 .hero-visual::after { background: radial-gradient(ellipse, rgba(111,231,200,.22), transparent 62%); bottom: 8%; content: ""; filter: blur(10px); height: 70px; left: 15%; position: absolute; width: 70%; }
@@ -144,15 +147,15 @@ a { color: inherit; text-decoration: none; }
 .category-section, .catalog-section, .principles-section { margin: 0 auto; max-width: 1376px; padding: 88px 48px; position: relative; }
 .category-section { border-top: 1px solid var(--line); }
 .heading-copy { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; max-width: 430px; }
-.category-grid { display: grid; gap: 13px; grid-template-columns: repeat(5, 1fr); }
+.category-grid { display: grid; gap: 13px; grid-template-columns: repeat(4, 1fr); }
 .category-card { align-items: center; background: rgba(13, 42, 53, .74); border: 1px solid var(--line); border-radius: 15px; color: var(--ivory); cursor: pointer; display: grid; gap: 11px; grid-template-columns: 42px 1fr auto; min-height: 96px; padding: 15px; text-align: left; transition: border-color .22s ease, transform .22s ease, background .22s ease; }
 .category-card:hover { background: rgba(18, 53, 66, .92); border-color: rgba(111,231,200,.5); transform: translateY(-3px); }
 .category-glyph { align-items: center; background: rgba(111,231,200,.08); border: 1px solid rgba(111,231,200,.2); border-radius: 12px; color: var(--mint); display: flex; font-size: 25px; height: 42px; justify-content: center; width: 42px; }
 .category-card strong { display: block; font-size: 14px; margin-bottom: 5px; }
 .category-card small { color: var(--muted); display: block; font-size: 9px; line-height: 1.35; }
 .category-card b { color: #6e8995; font-size: 11px; }
-.category-card[data-category="Emergencias"] .category-glyph, .category-card[data-category="Finanzas"] .category-glyph { background: rgba(255,107,97,.1); border-color: rgba(255,107,97,.25); color: var(--coral); }
-.category-card[data-category="Espacio"] .category-glyph, .category-card[data-category="Matemáticas"] .category-glyph { background: rgba(103,96,216,.15); border-color: rgba(160,153,255,.24); color: #bbb7ff; }
+.category-card[data-category="Emergencias"] .category-glyph, .category-card[data-category="Finanzas"] .category-glyph, .category-card[data-category="Simulacros y exámenes"] .category-glyph { background: rgba(255,107,97,.1); border-color: rgba(255,107,97,.25); color: var(--coral); }
+.category-card[data-category="Espacio"] .category-glyph, .category-card[data-category="Matemáticas y lógica"] .category-glyph, .category-card[data-category="Programación y robótica"] .category-glyph { background: rgba(103,96,216,.15); border-color: rgba(160,153,255,.24); color: #bbb7ff; }
 
 .catalog-section { padding-top: 78px; scroll-margin-top: 30px; }
 .catalog-head { align-items: end; display: flex; justify-content: space-between; }
@@ -160,7 +163,12 @@ a { color: inherit; text-decoration: none; }
 .secondary-button { background: rgba(111,231,200,.07); border: 1px solid rgba(111,231,200,.34); border-radius: 11px; color: var(--mint); cursor: pointer; font-size: 13px; font-weight: 700; padding: 12px 17px; transition: background .2s ease, transform .2s ease; }
 .secondary-button:hover { background: rgba(111,231,200,.13); transform: translateY(-2px); }
 .secondary-button span { margin-left: 8px; }
-.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 18px; }
+.access-filter { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.access-filter > span { color: var(--muted); font-size: 11px; font-weight: 700; margin-right: 4px; text-transform: uppercase; }
+.access-filter button { background: transparent; border: 1px solid var(--line); border-radius: 9px; color: #a9bec7; cursor: pointer; font-size: 10px; padding: 8px 10px; transition: all .2s ease; }
+.access-filter button:hover { border-color: rgba(111,231,200,.45); color: var(--ivory); }
+.access-filter button.selected { background: rgba(111,231,200,.13); border-color: rgba(111,231,200,.45); color: var(--mint); font-weight: 750; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 18px; }
 .filter-row button { background: rgba(16,44,55,.7); border: 1px solid var(--line); border-radius: 999px; color: #a9bec7; cursor: pointer; font-size: 11px; padding: 8px 12px; transition: all .2s ease; }
 .filter-row button:hover { border-color: rgba(111,231,200,.45); color: var(--ivory); }
 .filter-row button.selected { background: var(--mint); border-color: var(--mint); color: #08212a; font-weight: 750; }
@@ -175,13 +183,16 @@ a { color: inherit; text-decoration: none; }
 .simulator-visual::after { border-color: rgba(255,107,97,.13); height: 190px; transform: rotate(26deg); width: 130px; }
 .simulator-visual > span { color: var(--mint); filter: drop-shadow(0 0 16px rgba(111,231,200,.45)); font-size: 55px; position: relative; z-index: 2; }
 .simulator-visual small { background: rgba(3,18,27,.68); border: 1px solid var(--line); border-radius: 999px; bottom: 10px; color: #b6cbd2; font-size: 9px; left: 10px; padding: 5px 8px; position: absolute; z-index: 3; }
-.simulator-card[data-category="Emergencias"] .simulator-visual, .simulator-card[data-category="Finanzas"] .simulator-visual { background: radial-gradient(circle at 68% 34%, rgba(255,107,97,.24), transparent 36%), linear-gradient(135deg, #34202e, #0b2633); }
-.simulator-card[data-category="Emergencias"] .simulator-visual > span, .simulator-card[data-category="Finanzas"] .simulator-visual > span { color: var(--coral); filter: drop-shadow(0 0 15px rgba(255,107,97,.4)); }
-.simulator-card[data-category="Espacio"] .simulator-visual, .simulator-card[data-category="Matemáticas"] .simulator-visual { background: radial-gradient(circle at 65% 30%, rgba(103,96,216,.36), transparent 40%), linear-gradient(135deg, #101f3a, #181545); }
-.simulator-card[data-category="Espacio"] .simulator-visual > span, .simulator-card[data-category="Matemáticas"] .simulator-visual > span { color: #b7b3ff; }
+.simulator-card[data-category="Emergencias"] .simulator-visual, .simulator-card[data-category="Finanzas"] .simulator-visual, .simulator-card[data-category="Simulacros y exámenes"] .simulator-visual { background: radial-gradient(circle at 68% 34%, rgba(255,107,97,.24), transparent 36%), linear-gradient(135deg, #34202e, #0b2633); }
+.simulator-card[data-category="Emergencias"] .simulator-visual > span, .simulator-card[data-category="Finanzas"] .simulator-visual > span, .simulator-card[data-category="Simulacros y exámenes"] .simulator-visual > span { color: var(--coral); filter: drop-shadow(0 0 15px rgba(255,107,97,.4)); }
+.simulator-card[data-category="Espacio"] .simulator-visual, .simulator-card[data-category="Matemáticas y lógica"] .simulator-visual, .simulator-card[data-category="Programación y robótica"] .simulator-visual { background: radial-gradient(circle at 65% 30%, rgba(103,96,216,.36), transparent 40%), linear-gradient(135deg, #101f3a, #181545); }
+.simulator-card[data-category="Espacio"] .simulator-visual > span, .simulator-card[data-category="Matemáticas y lógica"] .simulator-visual > span, .simulator-card[data-category="Programación y robótica"] .simulator-visual > span { color: #b7b3ff; }
 .simulator-content { padding: 15px 16px 18px; }
 .simulator-topline { align-items: center; display: flex; justify-content: space-between; }
-.free-label { color: var(--mint); font-size: 9px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
+.free-label, .access-label { border-radius: 999px; font-size: 8.5px; font-weight: 750; letter-spacing: .04em; padding: 5px 7px; text-transform: uppercase; }
+.access-directo { background: rgba(111,231,200,.09); color: var(--mint); }
+.access-opcional { background: rgba(183,179,255,.1); color: #c8c5ff; }
+.access-mixto { background: rgba(255,107,97,.1); color: var(--coral-light); }
 .favorite-button { align-items: center; background: transparent; border: 1px solid var(--line); border-radius: 50%; color: #8ca5af; cursor: pointer; display: flex; font-size: 16px; height: 30px; justify-content: center; transition: all .2s ease; width: 30px; }
 .favorite-button:hover, .favorite-button.active { background: rgba(255,107,97,.1); border-color: rgba(255,107,97,.4); color: var(--coral); }
 .simulator-content h3 { font-size: 16px; letter-spacing: -.015em; margin: 12px 0 7px; }
@@ -191,6 +202,7 @@ a { color: inherit; text-decoration: none; }
 .simulator-content > a { align-items: center; border-top: 1px solid rgba(143,190,203,.13); color: var(--ivory); display: flex; font-size: 10px; font-weight: 700; justify-content: space-between; padding-top: 12px; }
 .simulator-content > a span { color: var(--mint); font-size: 15px; transition: transform .2s ease; }
 .simulator-content > a:hover span { transform: translate(2px,-2px); }
+.load-more-wrap { display: flex; justify-content: center; padding: 34px 0 4px; }
 .empty-state { align-items: center; border: 1px dashed rgba(111,231,200,.3); border-radius: 18px; display: flex; flex-direction: column; padding: 65px 20px; text-align: center; }
 .empty-state > span { color: var(--mint); font-size: 50px; transform: rotate(-20deg); }
 .empty-state h3 { font-size: 24px; margin: 7px 0; }
