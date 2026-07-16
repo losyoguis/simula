@@ -1,13 +1,13 @@
-# Publicar Simula en GitHub Pages e incrustarlo en Google Sites
+# Publicar SIMULA en GitHub Pages e incrustarlo en Google Sites
 
-Simula incluye una compilación estática independiente preparada para funcionar
+SIMULA, **La enciclopedia de la simulación**, incluye una compilación estática independiente preparada para funcionar
 tanto en un dominio raíz como en la subcarpeta de un repositorio de GitHub Pages.
 No requiere servidor, base de datos, variables de entorno ni claves de API.
 
 La página principal es `index.html` en la raíz. Ese archivo se regenera con la
 aplicación compilada cada vez que ejecutas `npm run build:github-pages`. La misma
 compilación queda en `docs/`, que es la carpeta publicada por GitHub Actions.
-Esta edición contiene 528 recursos en 27 categorías.
+Esta edición contiene 598 recursos en 29 categorías.
 
 El `index.html` principal contiene internamente todo el CSS y JavaScript de la
 interfaz. Por eso también puede abrirse directamente desde el explorador de
@@ -20,7 +20,7 @@ archivos del computador, sin instalar Node.js ni iniciar un servidor.
 2. En el repositorio abre **Settings > Pages**.
 3. En **Build and deployment > Source**, selecciona **GitHub Actions**.
 4. Abre la pestaña **Actions** y espera a que termine el flujo
-   **Publicar Simula en GitHub Pages**.
+   **Publicar SIMULA en GitHub Pages**.
 5. GitHub mostrará una dirección similar a
    `https://TU-USUARIO.github.io/NOMBRE-DEL-REPOSITORIO/`.
 
@@ -44,7 +44,7 @@ de GitHub Actions. Después de modificar el catálogo, ejecuta
 
 1. Descomprime el ZIP completo; no muevas `index.html` fuera de su carpeta.
 2. Haz doble clic en `index.html` o ábrelo con Chrome, Edge o Firefox.
-3. La enciclopedia, búsqueda, categorías y favoritos funcionarán localmente.
+3. La enciclopedia, categorías, filtros y favoritos funcionarán localmente.
 
 La plataforma se puede recorrer sin conexión, pero para abrir los simuladores
 externos es necesario tener internet. Las imágenes locales se encuentran en
@@ -79,7 +79,7 @@ npx serve docs
 5. Publica el sitio de Google.
 
 También puedes usar **Páginas > + > Incorporación de página completa** para que
-Simula ocupe una página entera. La interfaz es responsive y los enlaces de cada
+SIMULA ocupe una página entera. La interfaz es responsive y los enlaces de cada
 simulador se abren en una pestaña nueva, algo especialmente útil dentro del
 marco de Google Sites.
 
