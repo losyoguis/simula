@@ -64,7 +64,7 @@ const categoryClues: Record<Category, string[]> = {
   "Física y química": ["fisica", "quimica", "fuerza", "energia", "materia", "atomo", "molecula", "laboratorio"],
   "Biología y salud": ["biologia", "salud", "anatomia", "cuerpo", "celula", "genetica", "medicina", "virus"],
   Ingeniería: ["ingenieria", "circuito", "electronica", "arduino", "mecanismo", "electricidad"],
-  "Programación y robótica": ["programacion", "codigo", "robot", "robotica", "javascript", "scratch", "ciberseguridad"],
+  "Programación y robótica": ["programacion", "codigo", "robot", "robotica", "javascript", "scratch"],
   "Matemáticas y lógica": ["matematica", "matematicas", "fraccion", "geometria", "calculo", "algebra", "logica", "estadistica"],
   "Simulacros y exámenes": ["examen", "prueba", "simulacro", "saber", "icfes", "sat", "ielts", "conduccion"],
   Idiomas: ["idioma", "ingles", "espanol", "frances", "aleman", "vocabulario", "gramatica", "pronunciacion"],
@@ -75,6 +75,16 @@ const categoryClues: Record<Category, string[]> = {
   "Educativos infantiles": ["nino", "ninos", "infantil", "primaria", "preescolar", "familia", "pequeno"],
   Transporte: ["transporte", "vuelo", "avion", "conducir", "carro", "barco", "trafico"],
   Emergencias: ["emergencia", "desastre", "incendio", "tsunami", "epidemia", "asteroide", "riesgo"],
+  "IA y datos": ["inteligencia artificial", "machine learning", "aprendizaje automatico", "modelo", "datos", "visualizacion", "red neuronal", "estadistica"],
+  Ciberseguridad: ["ciberseguridad", "seguridad", "phishing", "hacking", "criptografia", "privacidad", "contrasena", "forense"],
+  Agricultura: ["agricultura", "cultivo", "granja", "suelo", "riego", "cosecha", "planta", "ganaderia"],
+  Sostenibilidad: ["sostenibilidad", "sostenible", "reciclaje", "carbono", "huella", "energia limpia", "circular", "climatico"],
+  Emprendimiento: ["emprendimiento", "empresa", "negocio", "startup", "mercado", "cliente", "ventas", "modelo de negocio"],
+  Psicología: ["psicologia", "memoria", "atencion", "cognicion", "personalidad", "emocion", "ansiedad", "conducta"],
+  Derecho: ["derecho", "ley", "legal", "juicio", "abogado", "constitucion", "tribunal", "justicia"],
+  Comunicación: ["comunicacion", "periodismo", "noticias", "oratoria", "escritura", "medios", "desinformacion", "podcast"],
+  Oficios: ["oficio", "electricista", "mecanica", "cnc", "construccion", "cocina", "seguridad laboral", "mantenimiento"],
+  Arquitectura: ["arquitectura", "plano", "vivienda", "urbanismo", "estructura", "bioclimatica", "interior", "asoleamiento"],
   "Juegos recreativos": ["jugar", "juegos", "diversion", "ajedrez", "cartas", "puzle", "rompecabezas", "aventura"],
 };
 
@@ -251,7 +261,7 @@ export default function Home() {
               value={query}
               onChange={(event) => { setQuery(event.target.value); setVisibleLimit(PAGE_SIZE); }}
               onFocus={() => setFavoritesOnly(false)}
-              placeholder="Busca física, inglés, ajedrez, anatomía…"
+              placeholder="Busca IA, psicología, derecho, arquitectura…"
             />
             <kbd>⌘ K</kbd>
           </label>
@@ -265,7 +275,7 @@ export default function Home() {
           <span className="orbit orbit-one" />
           <span className="orbit orbit-two" />
           <img src={imagePath("hero-globe.png")} alt="" />
-          <span className="data-pill pill-one">17 áreas de conocimiento</span>
+          <span className="data-pill pill-one">{categories.length} áreas de conocimiento</span>
           <span className="data-pill pill-two">Acceso web seleccionado</span>
         </div>
       </section>
@@ -279,7 +289,7 @@ export default function Home() {
             El asistente compara tu solicitud con los {simulators.length} recursos del catálogo.
           </p>
           <div className="assistant-examples" aria-label="Ejemplos de solicitudes">
-            {["Física para secundaria sin registro", "Inglés para practicar un examen", "Juegos de matemáticas para niños"].map((example) => (
+            {["Practicar phishing sin registro", "Diseñar una vivienda bioclimática", "Memoria y atención para estudiantes", "Aprender riego y tipos de suelo"].map((example) => (
               <button type="button" onClick={() => askAssistant(example)} key={example}>{example}</button>
             ))}
           </div>
@@ -292,7 +302,7 @@ export default function Home() {
                 id="assistant-request"
                 value={assistantQuery}
                 onChange={(event) => setAssistantQuery(event.target.value)}
-                placeholder="Ejemplo: necesito un simulador de circuitos para estudiantes de bachillerato que funcione sin iniciar sesión"
+                placeholder="Ejemplo: quiero practicar ciberseguridad con retos para principiantes y sin iniciar sesión"
                 rows={3}
               />
               <button className="primary-button" type="submit">Recomendar <span aria-hidden="true">✦</span></button>
@@ -356,7 +366,7 @@ export default function Home() {
       <section className="category-section" id="categorias" aria-labelledby="categories-title">
         <div className="section-heading">
           <div><p className="eyebrow">Todo está conectado</p><h2 id="categories-title">Explora por categoría</h2></div>
-          <p className="heading-copy">Desde laboratorios de física hasta idiomas, simulacros, arte y juegos de estrategia.</p>
+          <p className="heading-copy">Ciencia, tecnología, profesiones, ciudadanía, creatividad y formación práctica en un solo catálogo.</p>
         </div>
         <div className="category-grid">
           {categories.map((category) => {
