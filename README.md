@@ -2,7 +2,8 @@
 
 Biblioteca web de simuladores, simulacros, herramientas y juegos gratuitos.
 Esta edición incluye **307 recursos**, organizados en **17 categorías**, con
-búsqueda, filtros de acceso, favoritos locales y diseño adaptable a móviles.
+búsqueda, filtros de acceso, favoritos locales, asistente de recomendaciones y
+diseño adaptable a móviles.
 
 ## Lista para publicar
 
@@ -15,6 +16,10 @@ búsqueda, filtros de acceso, favoritos locales y diseño adaptable a móviles.
 La web pública no necesita servidor, base de datos, inicio de sesión ni claves.
 Los recursos externos se abren en una pestaña nueva para que también funcionen
 cuando Simula está incorporado dentro de Google Sites.
+
+El asistente analiza la descripción escrita por el visitante directamente en
+su navegador y recomienda recursos del catálogo. No necesita API, no utiliza
+servicios externos y no almacena las consultas.
 
 ## Uso rápido
 
