@@ -7,6 +7,7 @@ No requiere servidor, base de datos, variables de entorno ni claves de API.
 La página principal es `index.html` en la raíz. Ese archivo se regenera con la
 aplicación compilada cada vez que ejecutas `npm run build:github-pages`. La misma
 compilación queda en `docs/`, que es la carpeta publicada por GitHub Actions.
+Esta edición contiene 307 recursos en 17 categorías.
 
 El `index.html` principal contiene internamente todo el CSS y JavaScript de la
 interfaz. Por eso también puede abrirse directamente desde el explorador de
@@ -93,8 +94,8 @@ marco de Google Sites.
 
 ## Actualizar el catálogo
 
-Edita la lista `simulators` en `app/page.tsx`, guarda los cambios y súbelos a la
-rama `main`. GitHub Actions regenerará y publicará el sitio automáticamente.
+Edita el catálogo `resources` en `app/catalog.ts`, guarda los cambios y súbelos
+a la rama `main`. GitHub Actions regenerará y publicará el sitio automáticamente.
 
 ## Documentación oficial
 
